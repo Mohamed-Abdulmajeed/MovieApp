@@ -1,0 +1,277 @@
+.container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 200px);
+}
+
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px 0;
+  border-bottom: 2px solid #eee;
+
+  h1 {
+    font-size: 2.5rem;
+    margin: 0 0 10px 0;
+    color: #333;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+  }
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+
+  i {
+    font-size: 80px;
+    color: #ddd;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 0 10px 0;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0 0 30px 0;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    background: #ffd700;
+    color: #333;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+
+    &:hover {
+      background: #ffed4e;
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Wishlist Actions */
+.wishlist-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+
+  .movie-count {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1rem;
+  }
+
+  .btn-danger {
+    padding: 10px 20px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+
+    &:hover {
+      background: #ff5252;
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Wishlist Grid */
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+/* Wishlist Card */
+.wishlist-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Poster Wrapper */
+  .poster-wrapper {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #f0f0f0;
+
+    img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      transition: transform 0.3s;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Rating Badge */
+    .rating {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 215, 0, 0.9);
+      color: #333;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  /* Movie Info */
+  .movie-info {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .movie-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #ffd700;
+      }
+    }
+
+    .release-date {
+      font-size: 0.85rem;
+      color: #999;
+      margin: 0 0 10px 0;
+    }
+
+    .overview {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+      flex: 1;
+      line-height: 1.4;
+    }
+  }
+
+  /* Card Actions */
+  .card-actions {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+
+    .btn {
+      flex: 1;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+
+      &.btn-remove {
+        background: #ff6b6b;
+        color: white;
+
+        &:hover {
+          background: #ff5252;
+          transform: scale(1.05);
+        }
+      }
+
+      &.btn-details {
+        background: #667eea;
+        color: white;
+
+        &:hover {
+          background: #5568d3;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .page-header {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .wishlist-card {
+    .poster-wrapper img {
+      height: 250px;
+    }
+  }
+
+  .wishlist-actions {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+
+    .btn-danger {
+      width: 100%;
+    }
+  }
+}

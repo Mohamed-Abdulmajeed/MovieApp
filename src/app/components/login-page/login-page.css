@@ -1,0 +1,20 @@
+.body {
+background: #f5f5f5;
+}
+
+
+.login-card {
+width: 380px;
+border-radius: 12px;
+}
+
+
+.login-card input {
+height: 45px;
+}
+
+
+.login-card button {
+height: 45px;
+font-size: 1rem;
+}

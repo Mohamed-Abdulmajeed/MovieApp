@@ -1,0 +1,20 @@
+.body {
+background: #f0f0f0;
+}
+
+
+.register-card {
+width: 420px;
+border-radius: 12px;
+}
+
+
+.register-card input {
+height: 45px;
+}
+
+
+.register-card button {
+height: 45px;
+font-size: 1rem;
+}

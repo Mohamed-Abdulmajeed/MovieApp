@@ -1,0 +1,125 @@
+
+
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark shadow-lg">
+  <div class="container-fluid">
+    <!-- Brand Logo -->
+    <a class="navbar-brand d-flex align-items-center fw-bold" (click)="navigateToHome()">
+      <i class="fa-solid fa-film me-2"></i>
+      <span>Movie<span class="brand-accent">App</span></span>
+    </a>
+
+    <!-- Toggle Button for Mobile -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Menu -->
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-2">
+        <!-- Home Link -->
+        <li class="nav-item">
+          <a class="nav-link fw-600" (click)="navigateToHome()">
+            <i class="fa-solid fa-home me-1"></i> Home
+          </a>
+        </li>
+
+        <!-- Wishlist Link with Counter -->
+        <li class="nav-item">
+          <a
+            class="nav-link fw-600 position-relative"
+            (click)="navigateToWishlist()"
+            [class.disabled]="!wishlistService.getCurrentUserId()"
+            [attr.aria-disabled]="!wishlistService.getCurrentUserId()"
+            [attr.tabindex]="wishlistService.getCurrentUserId() ? 0 : -1"
+            [title]="wishlistService.getCurrentUserId() ? 'Wishlist' : 'Please log in to open wishlist'"
+          >
+            <i class="fa-solid fa-heart me-1"></i> Wishlist
+            <span *ngIf="wishlistCount > 0" class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+              {{ wishlistCount }}
+            </span>
+          </a>
+        </li>
+
+
+        <!-- Language Dropdown -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle fw-600"
+            href="#"
+            id="langDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-globe me-1"></i>
+            {{ languageNames[getCurrentLanguage()] }}
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="langDropdown">
+            <li *ngFor="let lang of languages">
+              <a
+                class="dropdown-item fw-500"
+                [class.active]="getCurrentLanguage() === lang"
+                (click)="changeLang(lang)"
+              >
+                <i
+                  class="fa-solid me-2"
+                  [ngClass]="getCurrentLanguage() === lang ? 'fa-check' : 'fa-circle'"
+                ></i>
+                {{ languageNames[lang] }}
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Dark Mode Toggle -->
+        <li class="nav-item">
+          <a
+            class="nav-link fw-600"
+            (click)="toggleDarkMode()"
+            title="Toggle Dark Mode"
+          >
+            <i [ngClass]="isDarkMode ? 'fa-sun' : 'fa-moon'" class="fa-solid"></i>
+          </a>
+        </li>
+
+        <!-- User Info or Login Button -->
+        <li class="nav-item dropdown">
+          <div *ngIf="currentUser; else showLogin">
+            <a
+              class="nav-link dropdown-toggle fw-600 d-flex align-items-center"
+              href="#"
+              id="userDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-user-circle me-2"></i>
+              {{ currentUser.displayName }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="userDropdown">
+              <li>
+                <a class="dropdown-item fw-500" (click)="logout()">
+                  <i class="fa-solid fa-sign-out-alt me-2"></i> Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+          <ng-template #showLogin>
+            <a class="btn btn-light btn-sm fw-600 px-3" (click)="navigateToLogin()">
+              <i class="fa-solid fa-sign-in-alt me-1"></i> Login
+            </a>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

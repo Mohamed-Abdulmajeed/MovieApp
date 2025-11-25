@@ -1,0 +1,177 @@
+<div class="container">
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <h1>Welcome to our movie app</h1>
+    <p>Millions of movies, TV shows and people to discover. Explore now.</p>
+  </div>
+
+  <!-- Search Container -->
+  <div class="search-container">
+    <input
+      type="text"
+      placeholder="Search any movie..."
+      [(ngModel)]="searchQuery"
+      (keyup.enter)="searchMovies(searchQuery)"
+      class="search-input"
+    />
+    <button class="btn-search" (click)="searchMovies(searchQuery)">Search</button>
+    <button
+      *ngIf="isSearching"
+      class="btn-clear"
+      (click)="clearSearch()"
+    >
+      Clear
+    </button>
+  </div>
+
+  <!-- Filter & Sort Section -->
+  <div class="filter-sort-section">
+    <div class="filter-group">
+      <label for="sort-select">Sort by:</label>
+      <select
+        id="sort-select"
+        [(ngModel)]="selectedSortBy"
+        (change)="changeSortBy(selectedSortBy)"
+        class="filter-select"
+      >
+        <option *ngFor="let option of sortOptions" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="rating-select">Min Rating:</label>
+      <select
+        id="rating-select"
+        [(ngModel)]="minRating"
+        (change)="changeMinRating(minRating)"
+        class="filter-select"
+      >
+        <option [value]="0">All Ratings</option>
+        <option [value]="6">6+</option>
+        <option [value]="7">7+</option>
+        <option [value]="8">8+</option>
+        <option [value]="9">9+</option>
+      </select>
+    </div>
+
+    <button
+      *ngIf="isFiltering || selectedGenres.length > 0 || minRating > 0"
+      class="btn-clear-filters"
+      (click)="clearFilters()"
+    >
+      Clear Filters
+    </button>
+  </div>
+
+  <!-- Genres Section -->
+  <div *ngIf="(movies.genres$ | async) as genreData" class="genres-section">
+    <h3>Filter by Genre:</h3>
+    <div class="genres-list">
+      <button
+        *ngFor="let genre of genreData.genres"
+        class="genre-tag"
+        [class.selected]="selectedGenres.includes(genre.id)"
+        (click)="toggleGenre(genre.id)"
+      >
+        {{ genre.name }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Section Title -->
+  <div class="section-title">
+    <h2>
+      {{
+        isFiltering
+          ? 'Filtered Results'
+          : isSearching
+            ? 'Search Results'
+            : 'Now Playing'
+      }}
+    </h2>
+  </div>
+
+  <!-- Movies Grid -->
+  <div class="movies-grid">
+    <div
+      *ngFor="let movie of (isFiltering ? (movies.filteredMovies$ | async)?.results : (isSearching ? (movies.AllMovieByName$ | async)?.results : (movies.nowPlaying$ | async)?.results))"
+      class="movie-card"
+      (click)="navigateToDetails(movie.id)"
+    >
+      <!-- Poster -->
+      <div class="poster-wrapper">
+        <img
+          *ngIf="movie.poster_path"
+          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <img
+          *ngIf="!movie.poster_path"
+          src="https://via.placeholder.com/300x450?text=No+Image"
+          [alt]="movie.title"
+        />
+        <!-- Rating Badge -->
+        <div class="rating">
+          {{ movie.vote_average.toFixed(1) }}
+        </div>
+        <!-- Favorite Button -->
+        <button 
+          class="btn-favorite" 
+          (click)="toggleWishlist(movie); $event.stopPropagation()"
+          [class.in-wishlist]="isInWishlist(movie.id)"
+          [title]="wishlistService.getCurrentUserId() ? 'Add to wishlist' : 'Please log in first'"
+        >
+          <i 
+            class="fa-heart"
+            [ngClass]="isInWishlist(movie.id) ? 'fa-solid' : 'fa-regular'"
+          ></i>
+        </button>
+      </div>
+
+      <!-- Movie Info -->
+      <div class="movie-info">
+        <h3>{{ movie.title }}</h3>
+        <p class="release-date">
+          {{ movie.release_date | date : 'MMM d, y' }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button
+      class="pagination-btn"
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+    >
+      ‹
+    </button>
+
+    <!-- Page Numbers - Dynamic -->
+    <div class="page-numbers">
+      <button
+        class="page-number"
+        [class.active]="currentPage === page"
+        *ngFor="let page of getPageNumbers()"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+      <span class="page-info" *ngIf="totalPages > 10">...</span>
+    </div>
+
+    <!-- Page Info -->
+    <span class="pagination-info">{{ currentPage }} / {{ totalPages }}</span>
+
+    <button 
+      class="pagination-btn" 
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      ›
+    </button>
+  </div>
+</div>

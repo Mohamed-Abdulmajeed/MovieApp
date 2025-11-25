@@ -1,0 +1,175 @@
+<div class="body d-flex align-items-center justify-content-center vh-100">
+  <div class="card shadow-lg p-4 login-card">
+    <h2 class="text-center mb-4 fw-bold title">Login</h2>
+
+    <form #loginForm="ngForm" (ngSubmit)="submitLogin()">
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email Address</label>
+        <input
+          type="email"
+          autocomplete="off"
+          id="email"
+          name="email"
+          class="form-control form-input"
+          required
+          [(ngModel)]="emailAddress"
+          #email="ngModel"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          (keyup.enter)="submitLogin()"
+        />
+        @if (email.touched && email.invalid) {
+          @if (email?.errors?.['required']) {
+            <div class="text-danger mt-1"><small>Email is required.</small></div>
+          }
+          @else if (email?.errors?.['pattern']) {
+            <div class="text-danger mt-1"><small>Invalid email format.</small></div>
+          }
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input
+          type="password"
+          autocomplete="new-password"
+          id="password"
+          name="password"
+          class="form-control form-input"
+          required
+          [(ngModel)]="Password"
+          #password="ngModel"
+          pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,20}$"
+          (keyup.enter)="submitLogin()"
+        />
+@if (password.touched && password.invalid) {
+  @if (password?.errors?.['required']) {
+    <div class="text-danger mt-1"><small>Password is required.</small></div>
+  }
+  @else if (password?.errors?.['pattern']) {
+    <div class="text-danger mt-1">
+      <small>Password must be 8-20 characters, include uppercase, lowercase, number & special char.</small>
+    </div>
+  }
+}
+
+      </div>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="btn btn-primary w-100 submit-btn"
+        [disabled]="loginForm.invalid"
+      >
+        Login
+      </button>
+    </form>
+
+    <!-- Forgot Password -->
+    <div class="d-flex justify-content-end mt-2">
+      <button type="button"
+        class="btn btn-link text-primary fw-bold text-decoration-none"
+        (click)="openForgotPasswordModal()">
+  Forgot Password?
+</button>
+
+    </div>
+
+
+    <!-- Register link -->
+    <div class="text-center mt-3">
+      Don't have an account?
+      <button (click)="navigateToRegister()" class="btn btn-link text-primary fw-bold text-decoration-none">
+        Register
+      </button>
+    </div>
+  </div>
+
+  <!-- Email Verification Modal -->
+  <div class="modal fade" id="verifyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 shadow">
+
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Email Verification Required</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+      
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary rounded-pill px-4"
+                  (click)="resendVerification()">
+            Resend Email
+          </button>
+
+          <button type="button" class="btn btn-secondary rounded-pill px-4"
+                  data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<!-- ====================== FORGOT PASSWORD MODAL ====================== -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow">
+
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Reset Your Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p class="mb-2">
+          Enter your email address and we will send you a password reset link.
+        </p>
+
+        <input
+          type="email"
+          id="resetEmail"
+          class="form-control form-input"
+          placeholder="Enter your email"
+          required
+          [(ngModel)]="emailReset"
+          #emailR="ngModel"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        />
+
+        @if (emailR.touched && emailR.invalid) {
+          @if (emailR?.errors?.['required']) {
+            <div class="text-danger mt-1"><small>Email is required.</small></div>
+          }
+          @else if (emailR?.errors?.['pattern']) {
+            <div class="text-danger mt-1"><small>Invalid email format.</small></div>
+          }
+        }
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-primary rounded-pill px-4"
+                [disabled]="emailR.invalid"
+                (click)="confirmResetPassword()">
+          Send Reset Email
+        </button>
+
+        <button type="button"
+                class="btn btn-secondary rounded-pill px-4"
+                data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+</div>

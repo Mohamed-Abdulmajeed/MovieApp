@@ -1,0 +1,85 @@
+<div class="container">
+  <!-- Page Title -->
+  <div class="page-header">
+    <h1>My Wishlist</h1>
+    <p class="subtitle">Movies I want to watch</p>
+  </div>
+
+  <!-- Empty Wishlist Message -->
+  <div *ngIf="wishlistMovies.length === 0" class="empty-state">
+    <i class="fa-solid fa-heart-broken"></i>
+    <h2>Your wishlist is empty</h2>
+    <p>Start adding movies to your wishlist!</p>
+    <a href="/home" class="btn btn-primary">
+      <i class="fa-solid fa-film me-2"></i> Discover Movies
+    </a>
+  </div>
+
+  <!-- Wishlist Movies -->
+  <div *ngIf="wishlistMovies.length > 0">
+    <!-- Clear All Button -->
+    <div class="wishlist-actions">
+      <span class="movie-count">{{ wishlistMovies.length }} movie(s)</span>
+      <button class="btn btn-danger" (click)="clearAllWishlist()">
+        <i class="fa-solid fa-trash me-1"></i> Clear All
+      </button>
+    </div>
+
+    <!-- Movies Grid -->
+    <div class="wishlist-grid">
+      <div
+        *ngFor="let movie of wishlistMovies"
+        class="wishlist-card"
+      >
+        <!-- Poster -->
+        <div class="poster-wrapper" (click)="navigateToDetails(movie.id)">
+          <img
+            *ngIf="movie.poster_path"
+            [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+            [alt]="movie.title"
+          />
+          <img
+            *ngIf="!movie.poster_path"
+            src="https://via.placeholder.com/300x450?text=No+Image"
+            [alt]="movie.title"
+          />
+          <!-- Rating Badge -->
+          <div class="rating">
+            {{ movie.vote_average.toFixed(1) }}
+          </div>
+        </div>
+
+        <!-- Movie Info -->
+        <div class="movie-info">
+          <h3 (click)="navigateToDetails(movie.id)" class="movie-title">
+            {{ movie.title }}
+          </h3>
+          <p class="release-date">
+            {{ movie.release_date | date : 'MMM d, y' }}
+          </p>
+          <p class="overview">
+            {{ movie.overview | slice:0:80 }}...
+          </p>
+        </div>
+
+        <!-- Remove Button -->
+        <div class="card-actions">
+          <button
+            class="btn btn-remove"
+            (click)="removeFromWishlist(movie.id)"
+            title="Remove from wishlist"
+          >
+            <i class="fa-solid fa-heart"></i> Remove
+          </button>
+          <button
+            class="btn btn-details"
+            (click)="navigateToDetails(movie.id)"
+            title="View details"
+          >
+            <i class="fa-solid fa-arrow-right"></i> Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

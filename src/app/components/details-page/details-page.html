@@ -1,0 +1,178 @@
+<div class="details-container">
+  <!-- Movie Details Card -->
+  <div class="details-card" *ngIf="movies.movieDetails$ | async as movieDetails">
+    <div class="details-content">
+      <!-- Left: Poster Section -->
+      <div class="poster-section">
+        <div class="poster-wrapper">
+          <img
+            *ngIf="movieDetails.poster_path"
+            [src]="'https://image.tmdb.org/t/p/w342' + movieDetails.poster_path"
+            [alt]="movieDetails.title"
+            class="poster-image"
+          />
+          <img
+            *ngIf="!movieDetails.poster_path"
+            src="https://via.placeholder.com/300x450?text=No+Image"
+            [alt]="movieDetails.title"
+            class="poster-image"
+          />
+
+          <!-- Rating Badge -->
+          <div class="rating-badge">
+            <div class="stars">
+              <span class="star" *ngFor="let i of [1, 2, 3, 4, 5]">
+                {{ i <= (movieDetails.vote_average / 2) ? '★' : '☆' }}
+              </span>
+            </div>
+            <p class="vote-count">{{ movieDetails.vote_count }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Movie Info Section -->
+      <div class="movie-info-section">
+        <!-- Title -->
+        <h1 class="movie-title">{{ movieDetails.title }}</h1>
+
+        <!-- Rating and Actions Row -->
+        <div class="rating-actions">
+          <div class="rating-display">
+            <span class="stars-inline">
+              <span class="star" *ngFor="let i of [1, 2, 3, 4, 5]">
+                {{ i <= (movieDetails.vote_average / 2) ? '★' : '☆' }}
+              </span>
+            </span>
+            <span class="vote-count-inline">{{ movieDetails.vote_count }}</span>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button class="btn btn-action" title="Add to favorites">
+              Action
+            </button>
+            <button class="btn btn-close" title="Close">
+              Close
+            </button>
+            <button class="btn btn-trailer" title="Watch Trailer">
+              Trailer
+            </button>
+          </div>
+        </div>
+
+        <!-- Trailer Section -->
+        <div class="trailer-section" *ngIf="officialTrailer">
+          <h3 class="trailer-title">Official Trailer</h3>
+          <div class="trailer-container">
+            <div *ngIf="loadingTrailer" class="trailer-loading">
+              <p>Loading trailer...</p>
+            </div>
+            <iframe
+              *ngIf="!loadingTrailer && trailerUrl"
+              [src]="trailerUrl"
+              class="trailer-iframe"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              title="Movie Trailer"
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p class="movie-description">{{ movieDetails.overview }}</p>
+
+        <!-- Metadata -->
+        <div class="movie-metadata">
+          <div class="metadata-item">
+            <span class="label">Duration</span>
+            <span class="value">{{ movieDetails.runtime }} mins</span>
+          </div>
+          <div class="metadata-item">
+            <span class="label">Languages</span>
+            <span class="value">
+              {{ (movieDetails.spoken_languages && movieDetails.spoken_languages.length > 0) 
+                ? movieDetails.spoken_languages[0].english_name 
+                : 'N/A' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Studio/Production Company -->
+        <div class="studio-section" *ngIf="movieDetails.production_companies && movieDetails.production_companies.length > 0">
+          <div class="studio-logo">
+            <img
+              *ngIf="movieDetails.production_companies[0].logo_path"
+              [src]="'https://image.tmdb.org/t/p/w200' + movieDetails.production_companies[0].logo_path"
+              [alt]="movieDetails.production_companies[0].name"
+              class="studio-logo-image"
+            />
+            <span *ngIf="!movieDetails.production_companies[0].logo_path" class="studio-name">
+              {{ movieDetails.production_companies[0].name }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Website Link -->
+        <p class="website-link" *ngIf="movieDetails.homepage">
+          <a [href]="movieDetails.homepage" target="_blank" class="link-icon">
+            🔗 Website
+          </a>
+        </p>
+      </div>
+
+      <!-- Favorite Button (Top Right) -->
+      <button
+        class="btn-favorite"
+        title="Add to favorites"
+        (click)="onToggleWishlist(movieDetails); $event.stopPropagation()"
+        [attr.aria-disabled]="movieDetails?.id && !isInWishlist(movieDetails.id) && !wishlistService.getCurrentUserId() ? 'true' : null"
+        [ngClass]="movieDetails?.id && isInWishlist(movieDetails.id) ? 'in-wishlist' : ''"
+      >
+        ♡
+      </button>
+    </div>
+  </div>
+
+  <!-- Recommendations Section -->
+  <div class="recommendations-wrapper" *ngIf="movies.MovieRecommendation$ | async as recommendations">
+    <div *ngIf="recommendations.results && recommendations.results.length > 0">
+      <h2 class="recommendations-title">Recommendations</h2>
+
+      <div class="recommendations-grid">
+        <div
+          *ngFor="let movie of recommendations.results"
+          class="rec-card"
+          (click)="navigateToMovie(movie.id)"
+        >
+          <!-- Poster -->
+          <div class="rec-poster-wrapper">
+            <img
+              *ngIf="movie.poster_path"
+              [src]="'https://image.tmdb.org/t/p/w342' + movie.poster_path"
+              [alt]="movie.title"
+            />
+            <img
+              *ngIf="!movie.poster_path"
+              src="https://via.placeholder.com/200x300?text=No+Image"
+              [alt]="movie.title"
+            />
+
+            <!-- Rating Circle -->
+            <div class="rating-circle-wrapper">
+              <app-rating-circle
+                [rating]="movie.vote_average"
+                [maxRating]="10"
+              ></app-rating-circle>
+            </div>
+          </div>
+
+          <!-- Movie Title and Date -->
+          <div class="rec-info">
+            <h3 class="rec-title">{{ movie.title }}</h3>
+            <p class="rec-date">{{ movie.release_date | date : 'MMM d, yyyy' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
