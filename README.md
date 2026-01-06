@@ -90,11 +90,8 @@ ng serve
 
 ## 🎥 App Demo (Video Preview)
 
-<video controls autoplay muted loop width="100%">
-  <source src="https://raw.githubusercontent.com/USERNAME/REPO_NAME/main/Movie%20App.mp4" type="video/mp4">
-</video>
-.
-
+Show Vedio Running on my Portfolio
+https://mohamed-abdelmajeed-portfolio.vercel.app/
 ---
 
 ## 📄 Documentation & References
