@@ -1,69 +1,127 @@
-# MovieApp
+# CineVue MovieApp 🎬
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.6.
+![Angular](https://img.shields.io/badge/Angular-20-red?style=for-the-badge&logo=angular)
+![Build](https://img.shields.io/badge/Build-Passing-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
-## Development server
+> CineVue MovieApp is an advanced Angular project developed by a team of 5.  
+> It integrates with TMDB API to display the latest movies, supports multiple languages, Dark/Light Mode, and includes professional-grade features.
 
-To start a local development server, run:
+---
+
+## 🌐 Live Demo
+[https://beshoywageh.github.io/movie-app/home](https://beshoywageh.github.io/movie-app/home)
+
+> النسخة الحية للتجربة مباشرة على GitHub Pages.
+
+---
+
+## 📖 Project Overview
+
+CineVue MovieApp is an Angular V+20 project developed as part of a course.  
+It provides users with multiple pages and features:
+
+- **Now Playing Movies**: Browse the latest movies  
+- **Movie Details**: View detailed info and recommendations  
+- **Search Movies**: Search and view results  
+- **Genres Page**: Browse movies by genres  
+- **Wishlist Page**: Add/remove movies to favorites  
+- **Login/Register**: User authentication via Firebase  
+- **Languages**: English, Arabic, French (ngx-translate + httptranslate)  
+- **Dark/Light Mode**: Fully responsive UI with DaisyUI & Tailwind  
+- **Lazy Loading** + Skeleton Loading for better performance  
+- **Signals & Resource API** for efficient data management
+
+> هذا المشروع يعرض أحدث الأفلام مع إمكانية إضافة المفضلة ودعم لغات متعددة ووضع الإضاءة الداكنة والفاتح.
+
+---
+
+## ⚙️ Technologies Used
+
+- **Angular 20**  
+- **DaisyUI** + **TailwindCSS**  
+- **Firebase** (Auth & Firestore)  
+- **TMDB API**  
+- **ngx-translate** + **httptranslate** (multi-language support)  
+- **Lazy Loading** + Skeleton Loading  
+- **Signals & Resource API**  
+- **Responsive Design**  
+
+> التقنيات المستخدمة في المشروع تشمل Angular، Firebase، دعم تعدد اللغات، وواجهة مستجيبة لجميع الأجهزة.
+
+---
+
+## 🖥️ Pages & Features
+
+1. **Movies List Page**: Home page showing latest movies  
+2. **Movie Details Page**: Details, recommendations, and trailer via YouTube  
+3. **Wishlist Page**: Shows user favorites with add/remove functionality  
+4. **Search Results Page**: Display movie search results  
+5. **Login / Register / Account Details**  
+6. **Genre Filtering & Sorting**: Filter by genre, rating, popularity, or release date  
+7. **Dark Mode Toggle** + Dynamic Page Title + Back to Top Button  
+8. **Lazy Loaded Routes** for optimized performance  
+9. **Multi-Language Support**: `en`, `ar`, `fr`  
+10. **Notifications (Snackbar)** for interactive user feedback
+
+> كل صفحة مصممة بعناية لتوفر تجربة سلسة مع التفاعل الكامل للمستخدم.
+
+---
+
+
+
+---
+
+## 🚀 Local Setup
+
+To run the project locally:
 
 ```bash
+# Install dependencies
+npm install
+
+# Run the project on localhost
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+> Firebase settings are private and not required for local testing.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🖼️ Screenshots (Placeholders)
 
-```bash
-ng generate component component-name
-```
+> Screen Shots with various (light/Dark) and Languages(EN, AR, FR):
+> 
+![Placeholder Screenshot](./screenshots/home-light.png)
+![Placeholder Screenshot](./screenshots/home-dark.png)
+![Placeholder Screenshot](./screenshots/details.png)
+![Placeholder Screenshot](./screenshots/wishlist.png)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+> لقطات شاشة متعددة من الموقع في الوضع (اليلي / النهاري) وكذلك مع تغيير اللغات (عربي، انجليزي، فرنسي).
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## 📄 Documentation & References
 
-To build the project run:
+* [TMDB API Documentation](https://developer.themoviedb.org)
+* [Angular Documentation](https://angular.io/docs)
+* [DaisyUI Documentation](https://daisyui.com)
 
-```bash
-ng build
-```
+> جميع المصادر المستخدمة موثقة هنا للرجوع إليها.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 📝 Future Improvements
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+* TMDB Account login for real Favorites and Watchlist
+* Performance optimizations for heavy pages
+* Support for additional languages and fully dynamic RTL layout
+* Enhanced UI/UX with interactive trailers
 
-```bash
-ng test
-```
+> خطط مستقبلية لتطوير المشروع بشكل أفضل واحترافي أكثر.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## ⚖️ License
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-================================
-================================
-Description
-CineVue is a movie discovery web application built with Angular that allows users to explore and browse movies through external API integration.
-The app features a modern and user-friendly interface with multi-language (i18n) support to enhance the user experience.
-The application focuses on clean architecture, responsive design, and efficient API consumption.
-It ensures smooth navigation, fast data loading, and scalable structure.
-echnologies Used
-
-Angular, TypeScript, Firebase, Bootstrap, Postman, RESTful APIs
+MIT License © 2025 CineVue MovieApp Team
