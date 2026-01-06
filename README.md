@@ -57,3 +57,13 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+================================
+================================
+Description
+CineVue is a movie discovery web application built with Angular that allows users to explore and browse movies through external API integration.
+The app features a modern and user-friendly interface with multi-language (i18n) support to enhance the user experience.
+The application focuses on clean architecture, responsive design, and efficient API consumption.
+It ensures smooth navigation, fast data loading, and scalable structure.
+echnologies Used
+
+Angular, TypeScript, Firebase, Bootstrap, Postman, RESTful APIs
