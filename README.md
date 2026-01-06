@@ -88,16 +88,12 @@ ng serve
 
 ---
 
-## 🖼️ Screenshots (Placeholders)
+## 🎥 App Demo (Video Preview)
 
-> Screen Shots with various (light/Dark) and Languages(EN, AR, FR):
-> 
-![Placeholder Screenshot](./screenshots/home-light.png)
-![Placeholder Screenshot](./screenshots/home-dark.png)
-![Placeholder Screenshot](./screenshots/details.png)
-![Placeholder Screenshot](./screenshots/wishlist.png)
-
-> لقطات شاشة متعددة من الموقع في الوضع (اليلي / النهاري) وكذلك مع تغيير اللغات (عربي، انجليزي، فرنسي).
+<video controls autoplay muted loop width="100%">
+  <source src="https://raw.githubusercontent.com/USERNAME/REPO_NAME/main/Movie%20App.mp4" type="video/mp4">
+</video>
+.
 
 ---
 
